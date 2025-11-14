@@ -38,13 +38,15 @@ function handleParentheses(eval_str) {
 
 function inputValidation(eval_str) {
   try {
-    // Add * before or after prantheses that haven't any operators
+    // Add "*" before or after prantheses that haven't any operators
     eval_str = eval_str.replace(/([\d.]+)\(/g, '$1*(');
     eval_str = eval_str.replace(/\)(?=[\d.])/g, ')*');
-    // Replacesqrt "√" with Math.sqrt( in eval_str
+    // Replacesqrt "√" with Math.sqrt( in "eval_str"
     eval_str = eval_str.replace(/√/g, "Math.sqrt(");
-    // Auto close the Parenthesis when finds an operator after sqrt(
-    eval_str = eval_str.replace(/Math\.sqrt\(([^()+\-*/]+)([+\-*/])/g,"Math.sqrt($1)$2");
+    // Auto close the Parenthesis when finds an operator after "sqrt("
+    eval_str = eval_str.replace(/\.sqrt\(([^()+\-*/]+)([+\-*/])/g,".sqrt($1)$2");
+    // Add "*" before "√", handles cases like 2√16
+    eval_str = eval_str.replace(/([\d.]+)Math/g, '$1*Math.sqrt(');
     // Auto close prantheses
     eval_str = handleParentheses(eval_str);
 
