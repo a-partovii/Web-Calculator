@@ -81,8 +81,10 @@ function calculate() {
       throw new Error("Invalid calculation");
     }
     // Round if it was a long float
-    result = Number(result.toPrecision(4));
-    display.innerText = result;
+  if (!Number.isInteger(result)) {
+      result = Number(result.toFixed(5));
+  }
+  display.innerText = result;
 
   } catch (error) {
     display.innerText = "Error";
